@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [[ -d "$1" ]]; then
+  init=$1
+  base=$2
+  tmp="template"
+
+  echo $base
+  mkdir $base
+
+  cp -R $tmp/* $base/
+  cp "$1/AndroidManifest.xml" "$base/app/src/main/"
+  cp -R "$1/res/" "$base/app/src/main/res/"
+  cp -R "$1/src" "$base/app/src/main/java"
+  
+  echo "Migration completes. You should be able to import your project to Android Studio. Enjoy!"
+else 
+  echo "Error: Wrong arguments."
+fi
+
