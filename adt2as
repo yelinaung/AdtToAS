@@ -1,11 +1,27 @@
 #!/bin/bash
 
+light_red='\033[31m]'
+green='\032'
+light_blue='\134'
+
+error_echo() {
+  echo -e "\033[0;31mError: Wrong arguments.\033[0m"
+}
+
+success_echo() {
+  echo -e "\033[0;32mMigration completes. You should be able to import your project to Android Studio. Enjoy!\033[0m"
+}
+
+info_echo() {
+  printf "\033[0;34m%b\n\033[0m" "$1"
+}
+
 if [[ -d "$1" ]]; then
   init=$1
   base=$2
   tmp="template"
 
-  echo $base
+  info_echo "$pwd/$base"
   mkdir $base
 
   cp -R $tmp/* $base/
@@ -13,8 +29,8 @@ if [[ -d "$1" ]]; then
   cp -R "$1/res/" "$base/app/src/main/res/"
   cp -R "$1/src" "$base/app/src/main/java"
   
-  echo "Migration completes. You should be able to import your project to Android Studio. Enjoy!"
+  success_echo "Migration completes. You should be able to import your project to Android Studio. Enjoy!"
 else 
-  echo "Error: Wrong arguments."
+  error_echo
 fi
 
